@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+  </head>
+  <body>
+      {% load crispy_forms_tags %}
+
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand mx-auto" href="/">
+          Contacts Database
+        </a>
+        <a class="navbar-brand mx-auto" href="searchnamephone">
+          Search (Name & telephone)
+        </a>
+        <a class="navbar-brand mx-auto" href="searchjob">
+          Search (Job)
+        </a>
+        <a class="navbar-brand mx-auto" href="comparename">
+          Compare Contacts
+        </a>
+      </nav>
+      <br><br>
+
+      {% block content %}
+
+        <form class="d-flex" method=POST action="comparename">
+          {% csrf_token %}
+          <input class="form-control" type="search" placeholder="Name of Contact1" aria-label="Search" name="Similar1">
+          <input class="form-control" type="search" placeholder="Name of Contact2" aria-label="Search" name="Similar2">
+          <button class="btn btn-link" type="submit">Compare Contacts</button>
+        </form>
+        {% if Similar1  %}
+          <br/>
+          {% for contact in contacts %}
+          {{contact.name}}
+          {{contact.job}}
+          {{contact.telephone}}
+          {{contact.mobile}}
+          <br/>
+          {% for contact2 in contacts2 %}
+          <br/>
+          {{contact2.name}}
+          {{contact2.job}}
+          {{contact2.telephone}}
+          {{contact2.mobile}}
+          <br/>
+          {% if contact.job == contact2.job  %}{% if contact.telephone == contact2.telephone  %}{% if contact.mobile == contact2.mobile  %}
+
+            true
+            {% else %}
+            false
+            {% endif %}
+            {% else %}
+            false
+            {% endif %}
+            {% else %}
+            false
+            {% endif %}
+          
+            
+          {% endfor %}
+          {% endfor %}
+
+        {% endif %}
+
+    
+      {% endblock %}
+
+      
+
+  </body>
+</html>

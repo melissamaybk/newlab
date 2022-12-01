@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+  </head>
+  <body>
+      {% load crispy_forms_tags %}
+
+ 
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand mx-auto" href="/">
+          Contacts Database
+        </a>
+        <a class="navbar-brand mx-auto" href="searchnamephone">
+          Search (Name & telephone)
+        </a>
+        <a class="navbar-brand mx-auto" href="searchjob">
+          Search (Job)
+        </a>
+        <a class="navbar-brand mx-auto" href="comparename">
+          Compare Contacts
+        </a>
+      </nav>
+      <br><br>
+
+        <h2>Update Contact</h2>
+
+        <form action="updatecontact/{{ contact.id }}" method="post">
+        {% csrf_token %}
+        Name:<br>
+        <input name="name" value="{{ contact.name }}">
+        <br><br>
+        Job:<br>
+        <input name="job" value="{{ contact.job }}">
+        <br><br>
+        Telephone Number:<br>
+        <input name="telephone" value="{{ contact.telephone }}">
+        <br><br>
+        Mobile Number:<br>
+        <input name="mobile" value="{{ contact.mobile}}">
+        <br><br>
+        <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
